@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-6.3自定义异常类练习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/6.3%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB%E7%BB%83%E4%B9%A0/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.319Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Execise;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Register</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span>  String[] userNames=&#123;<span class="string">&quot;张三&quot;</span>,<span class="string">&quot;李四&quot;</span>,<span class="string">&quot;王五&quot;</span>,<span class="string">&quot;马六&quot;</span>&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入用户名&quot;</span>);</span><br><span class="line">       String username=<span class="keyword">new</span> Scanner(System.in).next();</span><br><span class="line">       <span class="keyword">try</span>&#123;</span><br><span class="line">           checkUserName(userNames,username);</span><br><span class="line">       &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;后续代码&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkUserName</span><span class="params">(String[] userNames, String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (String userName : userNames) &#123;</span><br><span class="line">            <span class="keyword">if</span> (username.equals(userName)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RegisterException(<span class="string">&quot;用户已被注册&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;恭喜您，用户注册成功&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>自定义异常类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Execise;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RegisterException</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RegisterException</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/6.3%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB%E7%BB%83%E4%B9%A0/" data-id="ckfgjn6ob0012ag7ihstv5s41" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-6.2自定义异常类" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/6.2%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.318Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">        自定义异常类</span></span><br><span class="line"><span class="comment">            Java提供的异常类不够我们使用</span></span><br><span class="line"><span class="comment">            【格式】</span></span><br><span class="line"><span class="comment">            public class XXXException extends Exception &#123;</span></span><br><span class="line"><span class="comment">                添加一个空参数的构造方法；</span></span><br><span class="line"><span class="comment">                添加一个异常信息的构造方法</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        【注意】</span></span><br><span class="line"><span class="comment">        1.自定义异常类一般是Exception结尾，说明是异常类</span></span><br><span class="line"><span class="comment">        2.自定义的异常类一定要继承Exception或者是RunTimeException</span></span><br><span class="line"><span class="comment">        Exception：编译期异常，如果方法内部抛出了这个异常就必须处理</span></span><br><span class="line"><span class="comment">        RunTimeException:可以不用处理，交给jvm处理</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionDemo04</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExceptionDemo04</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">//    查看源码发现，所有的异常类会有一个带异常信息的构造方法，而这个方法会调用父类异常信息的构造方法，让父类处理这个异常</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExceptionDemo04</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">        <span class="keyword">super</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/6.2%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB/" data-id="ckfgjn6ob0011ag7i2uez6x1m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-6.1try--catch异常处理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/6.1try--catch%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.316Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">            try   catch :自己处理异常</span></span><br><span class="line"><span class="comment">            【格式】</span></span><br><span class="line"><span class="comment">            try&#123;可能产生异常的代码</span></span><br><span class="line"><span class="comment">            &#125;catch（定义一个异常变量用来接收抛出的异常）&#123;</span></span><br><span class="line"><span class="comment">            异常的处理逻辑，产生异常对象后，怎么处理异常</span></span><br><span class="line"><span class="comment">            一般在工作中，会把异常的信息储存到日志中（位置，原因，内容）</span></span><br><span class="line"><span class="comment">            &#125;。。。</span></span><br><span class="line"><span class="comment">            catch可以有多个</span></span><br><span class="line"><span class="comment">            【注意】</span></span><br><span class="line"><span class="comment">            1.try中可以抛出多个异常对象那么就要用多个catch接收处理这些异常</span></span><br><span class="line"><span class="comment">            2.如果try中产生了异常，那么就会执行catch的异常处理逻辑，当处理逻辑执行完之后，会继续执行之后的代码；</span></span><br><span class="line"><span class="comment">            3.如果try中没有产生异常，那么就不会执行catch中的异常处理逻辑，直接跳过catch执行之后的代码。</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">tryCatch</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            demo(<span class="string">&quot;densdkj.bat&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;不对&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            demo(<span class="keyword">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;后续运行&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo</span><span class="params">(String filename)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!filename.endsWith(<span class="string">&quot;.txt&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">&quot;文件类型不对&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;可以&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/6.1try--catch%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" data-id="ckfgjn6oa0010ag7i3z7bc61s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-5.7throws处理异常" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.7throws%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.314Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">           异常处理的第一种方式【交给别人处理】</span></span><br><span class="line"><span class="comment">           【作用】方法内部抛出异常对象的时候，就可以使用throws关键字，把异常抛出给方法的调用者，最终交给JVM处理【中断程序】</span></span><br><span class="line"><span class="comment">           【格式】在方法声明时使用</span></span><br><span class="line"><span class="comment">           修饰符 返回值类型 方法名（参数列表）throws Exception&#123;</span></span><br><span class="line"><span class="comment">           throw new XXXException (方法产生异常的原因)</span></span><br><span class="line"><span class="comment">           &#125;</span></span><br><span class="line"><span class="comment">           【注意】：</span></span><br><span class="line"><span class="comment">           1.必须写在方法声明处</span></span><br><span class="line"><span class="comment">           2. throws关键字后边声明的异常必须是Exception或者他的子类</span></span><br><span class="line"><span class="comment">           3.方法内部如果抛出了多个异常对象，那么throws后边也必须声明多个异常</span></span><br><span class="line"><span class="comment">           如果抛出的多个异常对象有子父类关系，那么直接声明父类异常即可</span></span><br><span class="line"><span class="comment">           4.调用了一个声明抛出异常的方法，那么就必须处理这个声明的异常，要么继续使用throws声明抛出交给方法的调用者，最终交给JVM</span></span><br><span class="line"><span class="comment">           要么try--catch</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">throwsDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        demo(<span class="string">&quot;C:\\a.tx&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    定义一个方法，对传递的文件路径进行合法性判断，如果不是C：\\a.txt，那么我们就抛出文件找不到对象告知方法的点用着</span></span><br><span class="line"><span class="comment">    * */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo</span><span class="params">(String filename)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!filename.equals(<span class="string">&quot;C:\\&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> FileNotFoundException(<span class="string">&quot;传递的文件路径不是&quot;</span>);<span class="comment">//编译异常，必须处理这个异常</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (filename.endsWith(<span class="string">&quot;.txt&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">&quot;文件类型不对&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.7throws%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/" data-id="ckfgjn6oa000zag7igyorgsc8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-5.6objects判断是否为空" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.6objects%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.312Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">        objects中的静态方法</span></span><br><span class="line"><span class="comment">         public static &lt;T&gt; requireNonNull(T obj):查看指定对象是不是null</span></span><br><span class="line"><span class="comment">         对null安全</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">objectNull</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        demo(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        Objects.requireNonNull(o);</span></span><br><span class="line">        Objects.requireNonNull(o,<span class="string">&quot;空的&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.6objects%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/" data-id="ckfgjn6o9000yag7iaqz37vyv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-5.5throw抛出异常" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.5throw%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.310Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">     异常的处理：try catch  finally throw throws</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        抛出异常 throw：在指定的方法中抛出指定的异常</span></span><br><span class="line"><span class="comment">            【格式】</span></span><br><span class="line"><span class="comment">            throw new XXXException（“异常产生的原因”）；</span></span><br><span class="line"><span class="comment">            【注意】</span></span><br><span class="line"><span class="comment">            1.必须写在方法的内部</span></span><br><span class="line"><span class="comment">            2.关键字的后边new的对象必须时Exception或者Exception的子类对象</span></span><br><span class="line"><span class="comment">            3.抛出的对象必须处理</span></span><br><span class="line"><span class="comment">                throw关键字后边创建的是runtimeException或者是他的子类对象，我们可以不出来，默认交给jvm处理【打印异常，中断程序】</span></span><br><span class="line"><span class="comment">                throw后边如果是编译异常，那么必须处理这个异常，要么throws，要么try--catch</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionDemo03</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ints=&#123;<span class="number">1</span>&#125;;</span><br><span class="line">        System.out.println(demo(<span class="number">1</span>,ints));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">demo</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span>[] ints )</span> </span>&#123;</span><br><span class="line"><span class="comment">//        对数组进行合法性校验。对数组校验</span></span><br><span class="line">        <span class="keyword">if</span> (ints==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">&quot;传递的值为空&quot;</span>);<span class="comment">//这个异常时运行期异常，可以不用处理交给jvm处理</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        对索引校验</span></span><br><span class="line">        <span class="keyword">if</span>(i&gt;=ints.length||i&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException(<span class="string">&quot;数组索引越界&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ints[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.5throw%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8/" data-id="ckfgjn6o9000xag7igof48nvd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-5.4异常产生原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.4%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.308Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Array;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">        异常产生过程解析（异常时怎么产生的），如何处理异常</span></span><br><span class="line"><span class="comment">           1. 当jvm发现异常之后，会根据异常产生原因创建一个对象，异常对象包含异常的内容原因和位置；</span></span><br><span class="line"><span class="comment">            代码中异常根据ArrayIndexOutOfBoundsException类创建一个对象【new ArrayIndexOutOfBoundsException】</span></span><br><span class="line"><span class="comment">          2.在demo中没有异常的处理逻辑【try---catch】，那么jvm就会把异常的对象抛出给方法的调用者【main】来处理这个异常</span></span><br><span class="line"><span class="comment">        但是main也没有异常的处理逻辑，所以把异常再次抛出给main的调用者jvm处理</span></span><br><span class="line"><span class="comment">        3 jvm接受到对象后，把异常对象的原因，内容，位置，以红色字体打印到控制台</span></span><br><span class="line"><span class="comment">         并终止当前运行的程序【中断程序】</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionDemo02</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ints=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">       <span class="keyword">int</span> i= ints[<span class="number">2</span>];</span><br><span class="line">        System.out.println(demo(<span class="number">3</span>, ints));<span class="comment">//抛出数组越界异常，根据ArrayIndexOutOfBoundsException创建</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    定义一个方法，获取数组指定索引处的元素</span></span><br><span class="line"><span class="comment">//    参数：指定的索引值，数组</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">demo</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span>[] arrays)</span> </span>&#123;</span><br><span class="line">        String sr=String.valueOf(arrays[i]);</span><br><span class="line">        <span class="keyword">return</span> sr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.4%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E5%8E%9F%E7%90%86/" data-id="ckfgjn6o8000wag7icdj14two" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-5.3 EXception概述" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.3%20EXception%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.307Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>​        导致<strong>JVM</strong>非正常停止</p>
+<p>​        <strong>异常不是语法错误</strong></p>
+<p>异常其实也是一个类，有一个顶级父类<strong>throwable</strong></p>
+<p>​    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.ParseException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">        Throwable</span></span><br><span class="line"><span class="comment">        Exception:编译异常：写代码的时候出现的异常</span></span><br><span class="line"><span class="comment">        RunTimeException: 运行期异常;</span></span><br><span class="line"><span class="comment">        异常就相当于是一个小毛病，处理掉依旧可以运行</span></span><br><span class="line"><span class="comment">        Error</span></span><br><span class="line"><span class="comment">                相当于程序的了无法解决的问题，【必须修改代码】</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="comment">/*throws ParseException*/</span> </span>&#123;</span><br><span class="line">        SimpleDateFormat sdf=<span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd&quot;</span>);<span class="comment">//修改日期格式</span></span><br><span class="line">        Date date = <span class="keyword">null</span>;<span class="comment">//把字符串格式的日期解析为date格式的日期</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            date = sdf.parse(<span class="string">&quot;19999-09399&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ParseException e) &#123;</span><br><span class="line">            e.printStackTrace();<span class="comment">//把异常处理掉程序可以继续运行</span></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(date);</span><br><span class="line">        <span class="keyword">int</span>[] ints=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;<span class="comment">//放可能会出现异常的代码</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">                System.out.println(ints[i]);<span class="comment">//运行期抛出异常</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (ArrayIndexOutOfBoundsException e)&#123;<span class="comment">//括号出现异常的类型，如果不知道，就输入Exception e(泛型)</span></span><br><span class="line">            e.printStackTrace();<span class="comment">//把异常处理掉程序可以继续运行</span></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;后续代码&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.3%20EXception%E6%A6%82%E8%BF%B0/" data-id="ckfgjn6o7000vag7i1chf94x3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-5.2 斗地主案例（牌的排序）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.2%20%E6%96%97%E5%9C%B0%E4%B8%BB%E6%A1%88%E4%BE%8B%EF%BC%88%E7%89%8C%E7%9A%84%E6%8E%92%E5%BA%8F%EF%BC%89/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.305Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Game;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;Integer,String&gt; poker=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        ArrayList&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;String&gt; Color=List.of(<span class="string">&quot;♠&quot;</span>,<span class="string">&quot;♥&quot;</span>,<span class="string">&quot;♣&quot;</span>,<span class="string">&quot;♦&quot;</span>);</span><br><span class="line">        List&lt;String&gt; num=List.of(<span class="string">&quot;2&quot;</span>,<span class="string">&quot;1&quot;</span>,<span class="string">&quot;K&quot;</span>,<span class="string">&quot;Q&quot;</span>,<span class="string">&quot;J&quot;</span>,<span class="string">&quot;10&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;7&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;3&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> index=<span class="number">0</span>;</span><br><span class="line">        poker.put(index,<span class="string">&quot;大王&quot;</span>);</span><br><span class="line">        list.add(index);</span><br><span class="line">        index++;</span><br><span class="line">        poker.put(index,<span class="string">&quot;小王&quot;</span>);</span><br><span class="line">        list.add(index);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        循环嵌套存储</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i1 = <span class="number">0</span>; i1 &lt; Color.size(); i1++) &#123;</span><br><span class="line">                index++;</span><br><span class="line">                poker.put(index,Color.get(i1)+num.get(i));</span><br><span class="line">                list.add(index);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(poker);</span><br><span class="line">        Collections.shuffle(list);</span><br><span class="line">        System.out.println(list);</span><br><span class="line"></span><br><span class="line">        ArrayList&lt;Integer&gt; play01=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        ArrayList&lt;Integer&gt; play02=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        ArrayList&lt;Integer&gt; play03=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        ArrayList&lt;Integer&gt; dipai=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">            Integer integer = list.get(i);</span><br><span class="line">            <span class="keyword">if</span> (i&lt;<span class="number">51</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (i%<span class="number">3</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                    play01.add(integer);</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> (i%<span class="number">3</span>==<span class="number">1</span>)&#123;</span><br><span class="line">                    play02.add(integer);</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> (i%<span class="number">3</span>==<span class="number">2</span>)&#123;</span><br><span class="line">                    play03.add(integer);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (i&gt;=<span class="number">51</span>)&#123;</span><br><span class="line">                dipai.add(integer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        对牌进行排序</span></span><br><span class="line">       Collections.sort(play01);</span><br><span class="line">       Collections.sort(play02);</span><br><span class="line">       Collections.sort(play03);</span><br><span class="line"></span><br><span class="line">        System.out.println(play01);</span><br><span class="line">        System.out.println(play02);</span><br><span class="line">        System.out.println(play03);</span><br><span class="line">        System.out.println(dipai);</span><br><span class="line"></span><br><span class="line">        look(play01,poker);</span><br><span class="line">        look(play02,poker);</span><br><span class="line">        look(play03,poker);</span><br><span class="line">        look(dipai,poker);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">look</span><span class="params">(List&lt;Integer&gt; list,HashMap&lt;Integer,String&gt; poker)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        for (int i = 0; i &lt; list.size(); i++) &#123;</span></span><br><span class="line"><span class="comment">//            System.out.print(poker.get(list.get(i))+&quot; &quot;);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Integer i :</span><br><span class="line">                list) &#123;</span><br><span class="line">            System.out.print(poker.get(i)+<span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.2%20%E6%96%97%E5%9C%B0%E4%B8%BB%E6%A1%88%E4%BE%8B%EF%BC%88%E7%89%8C%E7%9A%84%E6%8E%92%E5%BA%8F%EF%BC%89/" data-id="ckfgjn6o7000uag7i3jdn1gz1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-5.1求输入字符串每个字符的个数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.1%E6%B1%82%E8%BE%93%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%8F%E4%B8%AA%E5%AD%97%E7%AC%A6%E7%9A%84%E4%B8%AA%E6%95%B0/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.304Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> MapDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exercise</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String  in=<span class="keyword">new</span> Scanner(System.in).next();</span><br><span class="line">        HashMap&lt;Character,Integer&gt; map=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; in.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">char</span> c = in.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(c))&#123;</span><br><span class="line">               <span class="keyword">int</span> j= map.get(c);</span><br><span class="line">               j++;</span><br><span class="line">               map.put(c,j);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                map.put(c,<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(map);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.1%E6%B1%82%E8%BE%93%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%8F%E4%B8%AA%E5%AD%97%E7%AC%A6%E7%9A%84%E4%B8%AA%E6%95%B0/" data-id="ckfgjn6o6000tag7ig5l7ho7s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/4/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E9%9D%A2%E8%AF%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/Spring/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

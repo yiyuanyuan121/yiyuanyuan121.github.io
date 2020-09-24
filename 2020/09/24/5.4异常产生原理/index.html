@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="123456789101112131415161718192021222324252627package ExceptionDemo;import java.lang.reflect.Array;&#x2F;*        异常产生过程解析（异常时怎么产生的），如何处理异常           1. 当jvm发现异常之后，会根据异常产生原因创建一个对象，异常对象包含异常的内容原因和位置；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2020/09/24/5.4%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="123456789101112131415161718192021222324252627package ExceptionDemo;import java.lang.reflect.Array;&#x2F;*        异常产生过程解析（异常时怎么产生的），如何处理异常           1. 当jvm发现异常之后，会根据异常产生原因创建一个对象，异常对象包含异常的内容原因和位置；">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-24T08:13:13.308Z">
+<meta property="article:modified_time" content="2020-06-21T12:37:03.834Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-5.4异常产生原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/5.4%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.308Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ExceptionDemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Array;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">        异常产生过程解析（异常时怎么产生的），如何处理异常</span></span><br><span class="line"><span class="comment">           1. 当jvm发现异常之后，会根据异常产生原因创建一个对象，异常对象包含异常的内容原因和位置；</span></span><br><span class="line"><span class="comment">            代码中异常根据ArrayIndexOutOfBoundsException类创建一个对象【new ArrayIndexOutOfBoundsException】</span></span><br><span class="line"><span class="comment">          2.在demo中没有异常的处理逻辑【try---catch】，那么jvm就会把异常的对象抛出给方法的调用者【main】来处理这个异常</span></span><br><span class="line"><span class="comment">        但是main也没有异常的处理逻辑，所以把异常再次抛出给main的调用者jvm处理</span></span><br><span class="line"><span class="comment">        3 jvm接受到对象后，把异常对象的原因，内容，位置，以红色字体打印到控制台</span></span><br><span class="line"><span class="comment">         并终止当前运行的程序【中断程序】</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionDemo02</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ints=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">       <span class="keyword">int</span> i= ints[<span class="number">2</span>];</span><br><span class="line">        System.out.println(demo(<span class="number">3</span>, ints));<span class="comment">//抛出数组越界异常，根据ArrayIndexOutOfBoundsException创建</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    定义一个方法，获取数组指定索引处的元素</span></span><br><span class="line"><span class="comment">//    参数：指定的索引值，数组</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">demo</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span>[] arrays)</span> </span>&#123;</span><br><span class="line">        String sr=String.valueOf(arrays[i]);</span><br><span class="line">        <span class="keyword">return</span> sr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/5.4%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E5%8E%9F%E7%90%86/" data-id="ckfgjn6o8000wag7icdj14two" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/24/5.5throw%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/24/5.3%20EXception%E6%A6%82%E8%BF%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E9%9D%A2%E8%AF%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/Spring/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

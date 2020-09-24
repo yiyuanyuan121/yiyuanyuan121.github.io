@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JDBC中的对象1.DriverManager​    驱动管理对象 1.注册驱动mysql5之后的jar包可以省略注册驱动的步骤 2.获取数据库连接getconnection(url,user,passwrod) url:连接指定的路径：ip:端口：数据库名称【jdbc:mysql:&#x2F;&#x2F;】【IP地址】【端口号】【指定库】 eg: ​        jdbc:mysql:&#x2F;&#x2F;localhost:3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2020/09/24/%E5%8F%8D%E5%B0%84/JDBC%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="JDBC中的对象1.DriverManager​    驱动管理对象 1.注册驱动mysql5之后的jar包可以省略注册驱动的步骤 2.获取数据库连接getconnection(url,user,passwrod) url:连接指定的路径：ip:端口：数据库名称【jdbc:mysql:&#x2F;&#x2F;】【IP地址】【端口号】【指定库】 eg: ​        jdbc:mysql:&#x2F;&#x2F;localhost:3">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-24T08:13:13.377Z">
+<meta property="article:modified_time" content="2020-08-21T09:14:18.563Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-反射/JDBC中的对象" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/JDBC%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1/" class="article-date">
+  <time datetime="2020-09-24T08:13:13.377Z" itemprop="datePublished">2020-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JDBC中的对象"><a href="#JDBC中的对象" class="headerlink" title="JDBC中的对象"></a>JDBC中的对象</h2><h3 id="1-DriverManager"><a href="#1-DriverManager" class="headerlink" title="1.DriverManager"></a>1.DriverManager</h3><p>​    <strong>驱动管理对象</strong></p>
+<h4 id="1-注册驱动"><a href="#1-注册驱动" class="headerlink" title="1.注册驱动"></a>1.注册驱动</h4><p>mysql5之后的jar包可以省略注册驱动的步骤</p>
+<h4 id="2-获取数据库连接"><a href="#2-获取数据库连接" class="headerlink" title="2.获取数据库连接"></a>2.获取数据库连接</h4><p>getconnection(url,user,passwrod)</p>
+<p>url:连接指定的路径：ip:端口：数据库名称【jdbc:mysql://】【IP地址】【端口号】【指定库】</p>
+<p>eg:</p>
+<p>​        jdbc:mysql://localhost:3306/test</p>
+<p>【如果连接的是本机的MySQL服务器，并且MySQL服务器的默认端口是3306。，那么URL可以简写为：jdbc:mysql:///数据库名称】</p>
+<h3 id="2-Connection"><a href="#2-Connection" class="headerlink" title="2.Connection"></a>2.Connection</h3><p>​    <strong>数据库连接对象</strong></p>
+<h4 id="1-获取执行SQL的对象"><a href="#1-获取执行SQL的对象" class="headerlink" title="1.获取执行SQL的对象"></a>1.获取执行SQL的对象</h4><ul>
+<li><ul>
+<li><ul>
+<li><pre><code>Statement createStatement()
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- - - &#96;&#96;&#96;</span><br><span class="line">      PreparedStatement prepareStatement(String sql)</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-管理事务"><a href="#2-管理事务" class="headerlink" title="2.管理事务"></a>2.管理事务</h4><p>开启事务</p>
+<ul>
+<li><ul>
+<li><ul>
+<li><pre><code>void setAutoCommit(boolean autoCommit)//【调用该方法设置参数为false，既是开启事务】
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">提交事务</span><br><span class="line"></span><br><span class="line">- - - &#96;&#96;&#96;</span><br><span class="line">      void commit()</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>回滚事务</p>
+<ul>
+<li><ul>
+<li><ul>
+<li><pre><code>void rollback(Savepoint savepoint)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 3.Statement</span><br><span class="line"></span><br><span class="line">​	**执行SQL对象**</span><br><span class="line"></span><br><span class="line">1.执行sql</span><br><span class="line"></span><br><span class="line">- - - &#96;&#96;&#96;</span><br><span class="line">      boolean execute(String sql)&#x2F;&#x2F;可以执行所以方法</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><pre><code>int executeUpdate(String sql)//执行DML（insert、update、delete）语句、DDL（create、alter、drop）语句
+//返回值是影响的行数，可以通过影响行数的返回值可以判断语句是否执行成功
+//如果没有返回值，那么就是执行的是DDL语句
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- - - &#96;&#96;&#96;</span><br><span class="line">      ResultSet executeQuery(String sql)&#x2F;&#x2F;执行DQL语句(select	)</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-ResultSet"><a href="#4-ResultSet" class="headerlink" title="4.ResultSet"></a>4.ResultSet</h3><p>​    结果集对象</p>
+<h3 id="5-PreparedStatement"><a href="#5-PreparedStatement" class="headerlink" title="5.PreparedStatement"></a>5.PreparedStatement</h3><p>​    执行SQL对象：预编译</p>
+<p>参数使用【？】作为占位符</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务：是一个包含多个操作的业务操作，如果这个业务被事务管理，着这个业务的操作要么同时完成，要么同时失败</p>
+<p>操作：</p>
+<p>​    1.开启事务，void setAutoCommit(boolean autoCommit【<strong>设置为false表示开启事务</strong>】</p>
+<p>​    2.提交事务，void commit()</p>
+<p>​    3.回滚事务，void rollback(Savepoint savepoint)</p>
+<p>​        <strong>【使用connection对象对事务进行管理】</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/24/%E5%8F%8D%E5%B0%84/JDBC%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1/" data-id="ckfgjn6p0001wag7igyjv5c2m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/mybatis%20151810/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/Javaweb/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E9%9D%A2%E8%AF%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/%E5%8F%8D%E5%B0%84/Spring/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
